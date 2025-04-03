@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "module": "CommonJS", // Используем CommonJS
+        "outDir": "dist/cjs",
+        "declaration": true,
+        "declarationDir": "types",
+        "target": "ESNext",
+        "strict": true,
+        "esModuleInterop": true
+    },
+    "include": [
+        "src"
+    ]
+}

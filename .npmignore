@@ -1,0 +1,20 @@
+.turbo
+
+# Node.js
+node_modules/
+
+# TypeScript
+*.tsbuildinfo
+
+# Base code
+src/
+
+# IDE 
+.vscode/
+.idea/
+
+# Test
+tests/
+
+# Log
+npm-debug.log

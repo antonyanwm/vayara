@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "module": "NodeNext", // Используем NodeNext
+    "moduleResolution": "NodeNext",
+    "outDir": "dist", // Папка для сборки
+    "declaration": true,
+    "declarationDir": "types",
+    "emitDeclarationOnly": false,
+    "target": "ESNext",
+    "strict": true,
+    "esModuleInterop": true
+  },
+  "include": [
+    "src"
+  ]
+}

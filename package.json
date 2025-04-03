@@ -1,0 +1,68 @@
+{
+	"name": "vayara",
+	"version": "0.0.1",
+	"description": "Animation package",
+	"exports": {
+		".": {
+			"import": "./dist/index.js",
+			"require": "./dist/cjs/index.cjs",
+			"types": "./types/index.d.ts"
+		},
+		"./ScrollSmooth": {
+			"import": "./dist/ScrollSmooth/index.js",
+			"require": "./dist/cjs/ScrollSmooth/index.cjs",
+			"types": "./types/ScrollSmooth/index.d.ts"
+		},
+		"./ScrollTo": {
+			"import": "./dist/ScrollTo/index.js",
+			"require": "./dist/cjs/ScrollTo/index.cjs",
+			"types": "./types/ScrollTo/index.d.ts"
+		},
+		"./ScrollTrigger": {
+			"import": "./dist/ScrollTrigger/index.js",
+			"require": "./dist/cjs/ScrollTrigger/index.cjs",
+			"types": "./types/ScrollTrigger/index.d.ts"
+		}
+	},
+	"files": [
+		"types",
+		"dist",
+		"LICENSE",
+		"README.md",
+		"SECURITY.md"
+	],
+	"publishConfig": {
+		"access": "public"
+	},
+	"scripts": {
+		"build:esnext": "tsc --project tsconfig.json",
+		"build:cjs": "tsc --project tsconfig.commonjs.json",
+		"build": "pnpm run build:esnext && pnpm run build:cjs",
+		"prepublishOnly": "pnpm run build",
+		"test": "echo \"No tests specified\" && exit 0"
+	},
+	"devDependencies": {
+		"typescript": "^5.8.2"
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/antonyanwm/vayara.git"
+	},
+	"homepage": "https://github.com/antonyanwm/vayara",
+	"keywords": [
+		"animation",
+		"scroll",
+		"smooth",
+		"trigger"
+	],
+	"engines": {
+		"node": ">=16"
+	},
+	"contributors": [
+		"antonyanwm"
+	],
+	"bugs": {
+		"url": "https://github.com/antonyanwm/vayara/issues"
+	}
+}
