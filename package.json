@@ -1,32 +1,23 @@
 {
-	"name": "vayara",
-	"version": "0.0.1",
-	"description": "Animation package",
+	"name": "vayaraw",
+	"version": "0.0.71",
+	"description": "A lightweight smooth scrolling library for web projects.",
+	"author": {
+		"name": "Meruzhan"
+	},
+	"main": "dist/index.js",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"type": "module",
 	"exports": {
 		".": {
 			"import": "./dist/index.js",
-			"require": "./dist/cjs/index.cjs",
-			"types": "./types/index.d.ts"
-		},
-		"./ScrollSmooth": {
-			"import": "./dist/ScrollSmooth/index.js",
-			"require": "./dist/cjs/ScrollSmooth/index.cjs",
-			"types": "./types/ScrollSmooth/index.d.ts"
-		},
-		"./ScrollTo": {
-			"import": "./dist/ScrollTo/index.js",
-			"require": "./dist/cjs/ScrollTo/index.cjs",
-			"types": "./types/ScrollTo/index.d.ts"
-		},
-		"./ScrollTrigger": {
-			"import": "./dist/ScrollTrigger/index.js",
-			"require": "./dist/cjs/ScrollTrigger/index.cjs",
-			"types": "./types/ScrollTrigger/index.d.ts"
+			"types": "./dist/index.d.ts"
 		}
 	},
 	"files": [
-		"types",
 		"dist",
+		"types",
 		"LICENSE",
 		"README.md",
 		"SECURITY.md"
@@ -35,26 +26,33 @@
 		"access": "public"
 	},
 	"scripts": {
-		"build:esnext": "tsc --project tsconfig.json",
-		"build:cjs": "tsc --project tsconfig.commonjs.json",
-		"build": "pnpm run build:esnext && pnpm run build:cjs",
-		"prepublishOnly": "pnpm run build",
+		"build": "rollup -c",
 		"test": "echo \"No tests specified\" && exit 0"
 	},
 	"devDependencies": {
-		"typescript": "^5.8.2"
+		"@rollup/plugin-typescript": "^11.0.0",
+		"rollup": "^4.40.0",
+		"rollup-plugin-dts": "^6.1.0",
+		"glob": "^11.0.1",
+		"tslib": "^2.8.1",
+		"typescript": "^5.8.3"
 	},
-	"license": "MIT",
+	"license": "ISC",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/antonyanwm/vayara.git"
 	},
 	"homepage": "https://github.com/antonyanwm/vayara",
 	"keywords": [
-		"animation",
+		"smooth scroll",
+		"scroll animation",
+		"smooth scrolling",
+		"inertia scroll",
+		"scroll to",
+		"scroll trigger",
+		"parallax",
 		"scroll",
-		"smooth",
-		"trigger"
+		"vayara"
 	],
 	"engines": {
 		"node": ">=16"

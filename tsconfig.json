@@ -1,16 +1,21 @@
 {
   "compilerOptions": {
-    "module": "NodeNext", // Используем NodeNext
-    "moduleResolution": "NodeNext",
-    "outDir": "dist", // Папка для сборки
+    "target": "ES2020",
+    "module": "ESNext",
     "declaration": true,
-    "declarationDir": "types",
-    "emitDeclarationOnly": false,
-    "target": "ESNext",
+    "declarationDir": "./dist",
+    "outDir": "./dist",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "esModuleInterop": true
+    "skipLibCheck": true,
   },
   "include": [
     "src"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
   ]
 }

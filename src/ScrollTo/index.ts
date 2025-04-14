@@ -1,4 +1,5 @@
-import { cubicBezier, Bezier } from './util';
+import { cubicBezier } from './util';
+import type { Bezier } from './util';
 
 interface ScrollOptions {
 	target?: number | HTMLElement;

@@ -34,6 +34,6 @@ export function cubicBezier(t: number, bezier: Bezier): number {
 	return sampleCurveY(tAdjusted);
 }
 
-export const EASE_IN: Bezier = [0.42, 0, 1, 1]; // ease-in
-export const EASE_OUT: Bezier = [0, 0, 0.58, 1]; // ease-out
-export const EASE_IN_OUT: Bezier = [0.42, 0, 0.58, 1]; // ease-in-out
+export const EASE_IN: Bezier = [0.42, 0, 1, 1];
+export const EASE_OUT: Bezier = [0, 0, 0.58, 1];
+export const EASE_IN_OUT: Bezier = [0.42, 0, 0.58, 1];

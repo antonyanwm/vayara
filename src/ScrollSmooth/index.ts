@@ -5,21 +5,21 @@ type ScrollDirection = 'vertical' | 'horizontal';
 
 //! Interface Option
 interface SmoothOption {
-	wrapper?: HTMLElement | Window; //! Container
-	content?: HTMLElement; //! Content
-	smooth?: number; //! Smooth
-	direction?: ScrollDirection; //! Direction
-	smoothWheel?: boolean; //! Smooth Scroll
-	maxScrollSpeed?: number; //! Max speed
-	normalizeSmooth?: boolean; //! Normalize
+	wrapper?: HTMLElement | Window;
+	content?: HTMLElement;
+	smooth?: number;
+	direction?: ScrollDirection;
+	smoothWheel?: boolean;
+	maxScrollSpeed?: number;
+	normalizeSmooth?: boolean;
 	subPixelControl?: number;
 }
 
 //! Interface Event
 interface ScrollEvent {
-	scroll: number; //! current position
-	velocity: number; //! speed
-	direction: number; //! direction
+	scroll: number;
+	velocity: number;
+	direction: number;
 }
 
 type EventCallback = (e: ScrollEvent) => void;
@@ -32,32 +32,30 @@ class SmoothScroll {
 	private readonly smoothWheel: boolean;
 	private readonly maxScrollSpeed: number;
 	private readonly normalizeSmooth: boolean;
-	private documentHeight: number;
 	private scrollDirection?: number;
 
-	private targetScroll = 0; //! cell position
-	private currentScroll = 0; //! current position
-	private lastScroll = 0; //! end position
-	private velocity = 0; //! speed
-	private isScrolling = false; //! is Animating
-	private isStopped = false; //! is Stopped
-	private animationFrameId: number | null = null; //! Id Animation
-	private lastTime = 0; //! last Time
-	private subPixelControl: number = 0; //! Subpixel
+	private targetScroll = 0;
+	private currentScroll = 0;
+	private lastScroll = 0;
+	private velocity = 0;
+	private isScrolling = false;
+	private isStopped = false;
+	private animationFrameId: number | null = null;
+	private lastTime = 0;
+	private subPixelControl: number = 0;
 	private scrollInstance: ScrollInstance;
 
-	private readonly scrollCallbacks: EventCallback[] = []; //! Lessen Event
+	private readonly scrollCallbacks: EventCallback[] = [];
 
 	constructor(options: SmoothOption = {}) {
 		if (typeof window === 'undefined') {
 			throw new Error('SmoothScroll работает только в браузере');
 		}
-		this.documentHeight = document.documentElement.scrollHeight - window.innerHeight;
 		this.wrapper = options.wrapper ?? window;
 		this.content = options.content ?? document.documentElement;
-		this.smooth = Math.min(1, Math.max(0, options.smooth ?? 0.1)); //! 0-1
+		this.smooth = Math.min(1, Math.max(0, options.smooth ?? 0.1));
 		this.direction = options.direction ?? 'vertical';
-		this.smoothWheel = options.smoothWheel !== false; //! default true
+		this.smoothWheel = options.smoothWheel !== false;
 		this.maxScrollSpeed = options.maxScrollSpeed ?? 100;
 		this.normalizeSmooth = options.normalizeSmooth !== false;
 		this.subPixelControl = options.subPixelControl ?? 5;
@@ -145,17 +143,20 @@ class SmoothScroll {
 		//! scroll direction
 		this.scrollDirection = Math.sign(this.velocity);
 
-		const isCloseEnough = Math.abs(this.currentScroll - this.targetScroll) < this.subPixelControl;
-		const isSlowEnough = Math.abs(this.velocity) < this.subPixelControl;
+		const isCloseEnough = Math.abs(this.currentScroll - this.targetScroll) <= this.subPixelControl;
+		const isSlowEnough = Math.abs(this.velocity) <= this.subPixelControl;
 
 		if ((isCloseEnough && isSlowEnough) || this.isStopped) {
 			this.scrollInstance.kill();
 			if (realScroll <= this.subPixelControl && realScroll !== 0 && this.scrollDirection == -1) {
 				this.currentScroll = 0;
 				this.scrollInstance.scrollTo();
-			} else if (realScroll >= this.documentHeight - this.subPixelControl && this.scrollDirection == 1) {
-				this.currentScroll = this.documentHeight;
-				this.scrollInstance.scrollTo({ target: this.documentHeight, duration: 200 });
+			} else if (
+				realScroll >= document.documentElement.scrollHeight - window.innerHeight - this.subPixelControl &&
+				this.scrollDirection == 1
+			) {
+				this.currentScroll = document.documentElement.scrollHeight - window.innerHeight;
+				this.scrollInstance.scrollTo({ target: document.documentElement.scrollHeight - window.innerHeight, duration: 200 });
 			}
 
 			this.stopAnimation();
@@ -168,9 +169,11 @@ class SmoothScroll {
 
 	//! Wheel event
 	private handleWheel = (e: WheelEvent): void => {
+		console.log(e);
+		e.preventDefault();
+		e.stopImmediatePropagation();
 		if (!this.smoothWheel || this.isStopped) return;
 
-		e.preventDefault();
 		const delta = this.direction === 'vertical' ? e.deltaY : e.deltaX;
 		const scrollAmount = Math.min(Math.abs(delta) * 1.5, this.maxScrollSpeed) * Math.sign(delta);
 
@@ -188,7 +191,7 @@ class SmoothScroll {
 	}
 
 	private addEventListeners(): void {
-		this.wrapper.addEventListener('wheel', this.handleWheel as EventListener, { passive: false });
+		this.wrapper.addEventListener('wheel', this.handleWheel as EventListener, { passive: false, capture: true });
 		this.wrapper.addEventListener('scroll', this.handleNativeScroll);
 		window.addEventListener('resize', this.handleResize, { passive: false });
 	}
@@ -200,8 +203,6 @@ class SmoothScroll {
 	}
 
 	private handleResize = (): void => {
-		this.documentHeight = document.documentElement.scrollHeight - window.innerHeight;
-
 		const maxScroll = this.getMaxScroll();
 		if (this.targetScroll > maxScroll) {
 			this.targetScroll = maxScroll;

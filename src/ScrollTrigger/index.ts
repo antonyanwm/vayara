@@ -9,7 +9,7 @@ interface ScrollTriggerProps {
 
 	once?: boolean;
 
-	onUpdate?: (data: { progress: number; direction: number }) => void;
+	onUpdate?: ((data: { progress: number; direction: number }) => void) | undefined;
 	onEnter?: (entry: IntersectionObserverEntry) => void;
 	onLeave?: (entry: IntersectionObserverEntry) => void;
 	onEnterBack?: (entry: IntersectionObserverEntry) => void;
@@ -18,7 +18,7 @@ interface ScrollTriggerProps {
 
 class ScrollTrigger {
 	private observer: IntersectionObserver | null = null;
-	private markers?: { kill: () => void };
+	private markers?: { kill: () => void } | undefined;
 	private markerParent?: HTMLElement;
 
 	private targetElement: HTMLElement | null;
@@ -28,7 +28,7 @@ class ScrollTrigger {
 
 	private once!: boolean;
 
-	private onUpdate?: (data: { progress: number; direction: number }) => void;
+	private onUpdate: ((data: { progress: number; direction: number }) => void) | undefined;
 
 	private lastY!: number;
 	private elementRect!: DOMRect;
@@ -112,12 +112,12 @@ class ScrollTrigger {
 					if (this.selfConfig.direction == 1) {
 						onLeaveBack?.(entry);
 
-						// if (onUpdate) this.scrollProgress(0);
+						if (onUpdate) this.scrollProgress(0);
 					} else {
 						onLeave?.(entry);
 
-						// if (this.once) this.destroy();
-						// if (onUpdate) this.scrollProgress(100);
+						if (this.once) this.destroy();
+						if (onUpdate) this.scrollProgress(100);
 					}
 				}
 			},
