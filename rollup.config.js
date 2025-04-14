@@ -6,14 +6,14 @@ export default defineConfig([
 	{
 		input: 'src/index.ts',
 		output: {
-			dir: 'dist', // сохраняет структуру папок
+			dir: 'dist',
 			format: 'es',
 			sourcemap: true,
-			preserveModules: true, // 💡 ключевой момент
+			preserveModules: true,
 			preserveModulesRoot: 'src',
 		},
 		plugins: [typescript({ tsconfig: './tsconfig.json' })],
-		external: [], // можешь добавить зависимости, которые не хочешь включать
+		external: [],
 	},
 
 	// Типы
