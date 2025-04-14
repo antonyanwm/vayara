@@ -84,16 +84,16 @@ smoothScroll.off('scroll', callback);
 
 ## Options
 
-| Option            | Type           | Description                                             |
-| ----------------- | -------------- | ------------------------------------------------------- | ------------------------------------- |
-| `wrapper`         | `HTMLElement   | Window`                                                 | The container where scrolling occurs. |
-| `content`         | `HTMLElement`  | The element containing the content.                     |
-| `smooth`          | `number` (0-1) | Smoothness coefficient.                                 |
-| `direction`       | `'vertical'    | 'horizontal'`                                           | Scrolling direction.                  |
-| `smoothWheel`     | `boolean`      | Enables/disables smooth scrolling with the mouse wheel. |
-| `maxScrollSpeed`  | `number`       | Maximum scrolling speed.                                |
-| `normalizeSmooth` | `boolean`      | Normalizes animation smoothness.                        |
-| `subPixelControl` | `number`       | Subpixel movement control.                              |
+| Option            | Type                           | Description                                                                    |
+| ----------------- | ------------------------------ | ------------------------------------------------------------------------------ |
+| `wrapper`         | `HTMLElement` or `Window`      | The container where scrolling occurs.                                          |
+| `content`         | `HTMLElement`                  | The element containing the content inside the container.                       |
+| `smooth`          | `number` (0-1)                 | Smoothness coefficient (from 0 for no smoothness to 1 for maximum smoothness). |
+| `direction`       | `'vertical'` or `'horizontal'` | Scroll direction.                                                              |
+| `smoothWheel`     | `boolean`                      | Enables/disables smooth scrolling with the mouse wheel.                        |
+| `maxScrollSpeed`  | `number`                       | Maximum scrolling speed.                                                       |
+| `normalizeSmooth` | `boolean`                      | Normalizes animation smoothness for consistent performance.                    |
+| `subPixelControl` | `number`                       | Subpixel movement control.                                                     |
 
 ## License
 
